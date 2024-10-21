@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Damean_Andrei_Stefan_Lab2.Data;
 using Damean_Andrei_Stefan_Lab2.Models;
 
 namespace Damean_Andrei_Stefan_Lab2.Pages.Books
