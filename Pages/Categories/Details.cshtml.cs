@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Damean_Andrei_Stefan_Lab2.Data;
 using Damean_Andrei_Stefan_Lab2.Models;
 
-namespace Damean_Andrei_Stefan_Lab2.Pages.Books
+namespace Damean_Andrei_Stefan_Lab2.Pages.Categories
 {
     public class DetailsModel : PageModel
     {
@@ -17,7 +19,7 @@ namespace Damean_Andrei_Stefan_Lab2.Pages.Books
             _context = context;
         }
 
-        public Book Book { get; set; }
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -26,17 +28,15 @@ namespace Damean_Andrei_Stefan_Lab2.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book
-                .Include(b => b.Author)  // Include Author
-                .Include(b => b.BookCategories)  // Include BookCategories
-                    .ThenInclude(bc => bc.Category)  // Include related Categories
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (Book == null)
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
-
+            else
+            {
+                Category = category;
+            }
             return Page();
         }
     }
